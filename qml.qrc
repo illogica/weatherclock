@@ -3,5 +3,45 @@
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
         <file>README.md</file>
+        <file>WeatherClock.qml</file>
+        <file>components/Configure.qml</file>
+        <file>components/NightClock.qml</file>
+        <file>components/qmldir</file>
+        <file>components/Weather.qml</file>
+        <file>components/WeatherModelItem.qml</file>
+        <file>js/globals.js</file>
+        <file>js/logic.js</file>
+        <file>js/style.js</file>
+        <file>resources/background.png</file>
+        <file>resources/busy.png</file>
+        <file>resources/checkbox.png</file>
+        <file>resources/configure.png</file>
+        <file>resources/draw-rectangle.png</file>
+        <file>resources/icons_readme.txt</file>
+        <file>resources/light_background.png</file>
+        <file>utils/BusyIndicator.qml</file>
+        <file>utils/Button.qml</file>
+        <file>utils/CheckBox.qml</file>
+        <file>utils/Dialog.qml</file>
+        <file>utils/qmldir</file>
+        <file>resources/font/LED_REAL.TTF</file>
+        <file>resources/font/LED_REAL_readme.txt</file>
+        <file>resources/weather_icons/clear-night.png</file>
+        <file>resources/weather_icons/clouds-night.png</file>
+        <file>resources/weather_icons/mist.png</file>
+        <file>resources/weather_icons/overcast.png</file>
+        <file>resources/weather_icons/partly_cloudy.png</file>
+        <file>resources/weather_icons/partly_sunny.png</file>
+        <file>resources/weather_icons/rain.png</file>
+        <file>resources/weather_icons/showers.png</file>
+        <file>resources/weather_icons/snow.png</file>
+        <file>resources/weather_icons/snow_showers.png</file>
+        <file>resources/weather_icons/snow-night.png</file>
+        <file>resources/weather_icons/storm.png</file>
+        <file>resources/weather_icons/storm-night.png</file>
+        <file>resources/weather_icons/sunny.png</file>
+        <file>resources/weather_icons/thunderstorm.png</file>
+        <file>resources/weather_icons/partly_cloudy_night.png</file>
+        <file>resources/weather_icons/showers-night.png</file>
     </qresource>
 </RCC>
