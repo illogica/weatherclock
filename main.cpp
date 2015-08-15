@@ -5,6 +5,9 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("Illogica Software");
+    app.setOrganizationDomain("illogicasoftware.com");
+    app.setApplicationName("WeatherClock");
 
     QQuickView view;
     view.setMinimumSize(QSize(640,480));

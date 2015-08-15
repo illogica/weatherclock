@@ -236,7 +236,7 @@ Rectangle {
         showSeconds: true
         showDate: true
         forecastUpdateInterval: 5
-        locationText: qsTr("London")
+        //locationText: qsTr("London")
         forceOffline: false
     }
 

@@ -14,7 +14,6 @@
         <file>js/style.js</file>
         <file>resources/background.png</file>
         <file>resources/busy.png</file>
-        <file>resources/checkbox.png</file>
         <file>resources/configure.png</file>
         <file>resources/draw-rectangle.png</file>
         <file>resources/icons_readme.txt</file>
@@ -43,5 +42,12 @@
         <file>resources/weather_icons/thunderstorm.png</file>
         <file>resources/weather_icons/partly_cloudy_night.png</file>
         <file>resources/weather_icons/showers-night.png</file>
+        <file>resources/checkbox.png</file>
+        <file>icon/WeatherClock.svg</file>
+        <file>icon/hdpi/WeatherClock.png</file>
+        <file>icon/ldpi/WeatherClock.png</file>
+        <file>icon/mdpi/WeatherClock.png</file>
+        <file>icon/xhdpi/WeatherClock.png</file>
+        <file>icon/xxhdpi/WeatherClock.png</file>
     </qresource>
 </RCC>

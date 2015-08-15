@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import Qt.labs.settings 1.0
 import "../utils" 1.0
 import "../js/style.js"  as Style
 
@@ -7,11 +8,20 @@ Rectangle {
     property bool showSeconds: true
     property bool showDate: true
     property int forecastUpdateInterval: 5 //minutes
-    property string locationText: "London"
+    property string locationText: "Roma"
     property bool forceOffline: false
 
     width: 320
     height: 480
+
+    Settings{
+        id: settings
+        property alias mylocationText: root.locationText
+        property alias myForecastUpdateInterval: root.forecastUpdateInterval
+        property alias myShowSeconds: root.showSeconds
+        property alias myShowDate: root.showDate
+        property alias myForceOffline: root.forceOffline
+    }
 
     Image{
         id: background
@@ -42,7 +52,7 @@ Rectangle {
             text: locationText
             font.pixelSize: Style.textPixelSize
             color: Style.penColor
-            focus: true
+            //focus: true
             KeyNavigation.up: offlineCheckBox
             KeyNavigation.down: updateTextInput
         }
@@ -63,7 +73,7 @@ Rectangle {
             color: Style.penColor
             maximumLength: 3
             validator: IntValidator{bottom: 1; top:999}
-            focus: true
+            //focus: true
             KeyNavigation.up: locationTextInput
             KeyNavigation.down: secondsCheckBox
         }
