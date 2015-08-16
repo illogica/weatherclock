@@ -14,12 +14,11 @@ Item {
     Image{
         id: icon
         anchors.fill: parent
-        anchors.margins: width/5
+        anchors.margins: Style.forecastCellWidth/5
         smooth: true
         source: conditionImageUrl
         onStatusChanged: {
             if(status == Image.Error) console.log("Error loading conditionImage")
-            console.log("Screen proportion: " + Style.screenProportion)
         }
     }
 

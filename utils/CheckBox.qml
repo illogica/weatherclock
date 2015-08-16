@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "../style" 1.0
 
 Item {
     id: root
@@ -8,6 +9,9 @@ Item {
 
     Image{
         id: checkBox
+        height: 22 * Style.screenProportion
+        width: 22 * Style.screenProportion
+        fillMode: Image.PreserveAspectFit
         source: root.checked?
                     "../resources/checkbox.png":
                     "../resources/draw-rectangle.png"

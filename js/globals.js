@@ -12,12 +12,6 @@ function getSourceCurrent(location){
     return weatherCurrentBaseUrl + location + postFixUrl;
 }
 
-//The temperature is given like "278.95", which is 10 times too big.
-function fixTemperature(temperature){
-    var floatTemp = (parseFloat(temperature))/10;
-    return floatTemp.toFixed(0);
-}
-
 function getSourceImageUrl(iconId){
     return imageBaseUrl + iconId + ".png";
 }

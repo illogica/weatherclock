@@ -3,8 +3,12 @@ function getFormattedDateTime(format){
     return Qt.formatDateTime(date, format)
 }
 
-function f2c(tempInF){
-    return (5/9*(tempInF - 32)).toFixed(0)
+function k2c(tempInK){
+    return (parseFloat(tempInK) - 273.15).toFixed(1)
+}
+
+function k2f(tempInK){
+    return ((parseFloat(tempInK)*(9/5))-459.67).toFixed(1)
 }
 
 /*

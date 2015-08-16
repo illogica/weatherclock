@@ -10,6 +10,7 @@ Rectangle {
     property int forecastUpdateInterval: 5 //minutes
     property string locationText: "Roma"
     property bool forceOffline: false
+    property bool useFarenheit: false
 
     width: 320
     height: 480
@@ -21,6 +22,7 @@ Rectangle {
         property alias myShowSeconds: root.showSeconds
         property alias myShowDate: root.showDate
         property alias myForceOffline: root.forceOffline
+        property alias myUseFarenheit: root.useFarenheit
     }
 
     Image{
@@ -36,7 +38,8 @@ Rectangle {
         columns: 2
         anchors.left: root.left
         anchors.leftMargin: spacing
-        anchors.verticalCenter: root.verticalCenter
+        //anchors.verticalCenter: root.verticalCenter
+        anchors.top: root.top
         anchors.right: root.right
 
         Text{
@@ -120,6 +123,21 @@ Rectangle {
             id: offlineCheckBox
             checked: forceOffline
             KeyNavigation.up: dateCheckBox
+            KeyNavigation.down: farenheitCheckBox
+        }
+
+        Text{
+            id: farenheitLabel
+            text: qsTr("Use Farenheit F°")
+            color: offlineCheckBox.focus ?
+                Qt.lighter(Style.penColor) : Style.penColor
+            font.pixelSize: Style.textPixelSize
+        }
+
+        CheckBox{
+            id: farenheitCheckBox
+            checked: useFarenheit
+            KeyNavigation.up: offlineCheckBox
             KeyNavigation.down: locationTextInput
         }
     }
@@ -151,6 +169,7 @@ Rectangle {
             root.showSeconds = secondsCheckBox.checked
             root.showDate = dateCheckBox.checked
             root.forceOffline = offlineCheckBox.checked
+            root.useFarenheit = farenheitCheckBox.checked
         }
     }
 }

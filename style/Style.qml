@@ -7,14 +7,14 @@ QtObject {
     property string backgroundImage : "background.png"
 
     //Scale all the size according to Screen.pixelDensity
-    property int dpmRatio: 6
+    property real dpmRatio: 5
     property real screenProportion: Screen.pixelDensity / dpmRatio
 
     // color used to paint text and button borders
     property string penColor: "grey"
 
     // size of of the UI texts
-    property int textPixelSize : 22 * screenProportion
+    property int textPixelSize : 20 * screenProportion
 
     // ??
     property int baseMargin : 10
@@ -28,8 +28,8 @@ QtObject {
 
     // styles for the Weather delegate
     property string forecastTextColor: "white"
-    property int forecastCellWidth: 200 * screenProportion
-    property int forecastCellHeight: 200 * screenProportion
+    property int forecastCellWidth: 128 * screenProportion
+    property int forecastCellHeight: 128 * screenProportion
     property string forecastTempColor: "red"
     property real iconProportionv: 0.9
     property real textSizeDayProportion : 0.13

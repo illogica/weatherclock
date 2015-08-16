@@ -14,6 +14,7 @@ Rectangle {
     property bool showSeconds: configure.showSeconds
     property bool showDate: configure.showDate
     property bool forceOffline: configure.forceOffline
+    property bool useFarenheit: configure.useFarenheit
     state: forceOffline ? "Offline" : weatherModelItem.state
 
     width: Window.width
@@ -67,8 +68,13 @@ Rectangle {
 
                 labelText: Globals.whichDay(Logic.dateFromXmlString(model.dateTime)) + "\n" + Logic.timeFromXmlString(model.dateTime)
                 conditionText: model.condition
-                tempText: '<font color="lightskyblue">' + Globals.fixTemperature(model.temperatureLow) + "C°</font>" +
-                          '/<font color="tomato">' + Globals.fixTemperature(model.temperatureHigh) + "C°</font>"
+                tempText: if(useFarenheit){
+                              '<font color="lightskyblue">' + (Logic.k2f(model.temperatureLow)) + "F°</font>" +
+                          '/<font color="tomato">' + (Logic.k2f(model.temperatureHigh)) + "F°</font>"}
+                            else {
+                              '<font color="lightskyblue">' + (Logic.k2c(model.temperatureLow)) + "C°</font>" +
+                          '/<font color="tomato">' + (Logic.k2c(model.temperatureLow)) + "C°</font>"}
+
                 conditionImageUrl:  Globals.getWeatherImage(model.icon)
 
                 Behavior on x {
@@ -88,13 +94,14 @@ Rectangle {
             labelText: root.defaultLocation
             conditionText: model.condition
             conditionImageUrl: Globals.getWeatherImage(model.icon)
-            tempText: Globals.fixTemperature(model.temp) + "C°"
+            tempText: if(useFarenheit)(Logic.k2c(model.temp) + "F°")
+                       else (Logic.k2f(model.temp) + "C°")
         }
     }
 
     NightClock{
         id: clockScreen
-        height: 110 * (Screen.pixelDensity / Style.dpmRatio)
+        height: 110 * Style.screenProportion
         anchors.centerIn: root
         showDate: root.showDate
         showSeconds: root.showSeconds
@@ -155,8 +162,8 @@ Rectangle {
             anchors.bottom: statusText.top
             width: weatherScreen.width
             height: weatherScreen.height - weatherScreenHeader.height - bottomButtonsRow.height - statusText.height
-            cellHeight: Style.forecastCellHeight * Style.screenProportion
-            cellWidth: Style.forecastCellWidth * Style.screenProportion
+            cellHeight: Style.forecastCellHeight
+            cellWidth: Style.forecastCellWidth
             clip: true
 
             model: weatherModelItem.forecastModel
@@ -239,6 +246,7 @@ Rectangle {
         forecastUpdateInterval: 5
         //locationText: qsTr("London")
         forceOffline: false
+        useFarenheit: false
     }
 
     states: [
@@ -266,9 +274,9 @@ Rectangle {
             to: "Offline"
             PropertyAnimation{
                 target: clockScreen
-                property: opacity
+                property: "opacity"
                 from: 0
-                to: 1
+                to: 1.0
                 easing.type: Easing.Linear
                 duration: 5000
             }
@@ -278,13 +286,39 @@ Rectangle {
             to: "Live Weather"
             PropertyAnimation{
                 target: clockScreen
-                property: opacity
-                from: 0
-                to: 1
+                property: "opacity"
+                from: 1.0
+                to: 0
                 easing.type: Easing.Linear
                 duration: 5000
             }
+        },
+        Transition {
+            from: "Live Weather"
+            to: "Loading"
+            PropertyAnimation{
+                target: weatherScreen
+                property: "opacity"
+                from: 0
+                to: 1.0
+                easing.type: Easing.Linear
+                duration: 2000
+            }
+        },
+        Transition {
+            from: "Loading"
+            to: "Live Weather"
+            PropertyAnimation{
+                target: weatherScreen
+                property: "opacity"
+                from: 0
+                to: 1.0
+                easing.type: Easing.Linear
+                duration: 2000
+            }
         }
     ]
+
+    onUseFarenheitChanged: console.log("Use farenheit: " + useFarenheit)
 }
 
