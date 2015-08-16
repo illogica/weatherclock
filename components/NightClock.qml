@@ -1,6 +1,7 @@
 import QtQuick 2.0
+import QtQuick.Window 2.2
 import "../js/logic.js" as Logic
-import "../js/style.js" as Style
+import "../style" 1.0
 
 Rectangle {
     id:root
@@ -13,8 +14,8 @@ Rectangle {
 
     //property int updatedWidth : 240
 
-    width: 120
-    height: 250
+    width: 120 * (Screen.pixelDensity / Style.dpmRatio)
+    height: 250 * (Screen.pixelDensity / Style.dpmRatio)
 
     color: "transparent"
 

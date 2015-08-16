@@ -11,7 +11,6 @@
         <file>components/WeatherModelItem.qml</file>
         <file>js/globals.js</file>
         <file>js/logic.js</file>
-        <file>js/style.js</file>
         <file>resources/background.png</file>
         <file>resources/busy.png</file>
         <file>resources/configure.png</file>
@@ -49,5 +48,7 @@
         <file>icon/mdpi/WeatherClock.png</file>
         <file>icon/xhdpi/WeatherClock.png</file>
         <file>icon/xxhdpi/WeatherClock.png</file>
+        <file>style/Style.qml</file>
+        <file>style/qmldir</file>
     </qresource>
 </RCC>

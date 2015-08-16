@@ -3,8 +3,8 @@ import QtQuick.Window 2.2
 
 import "utils" 1.0
 import "components" 1.0
+import "style" 1.0
 import "js/logic.js" as Logic
-import "js/style.js" as Style
 import "js/globals.js" as Globals
 
 Rectangle {
@@ -65,7 +65,7 @@ Rectangle {
             Weather{
                 id: weatherForecastItem
 
-                labelText: Globals.whichDay(Logic.dateFromXmlString(model.dateTime)) + ", " + Logic.timeFromXmlString(model.dateTime)
+                labelText: Globals.whichDay(Logic.dateFromXmlString(model.dateTime)) + "\n" + Logic.timeFromXmlString(model.dateTime)
                 conditionText: model.condition
                 tempText: Globals.fixTemperature(model.temperature) + "C°"
                 conditionImageUrl:  Globals.getWeatherImage(model.icon)
@@ -93,7 +93,7 @@ Rectangle {
 
     NightClock{
         id: clockScreen
-        height: 130
+        height: 110 * (Screen.pixelDensity / Style.dpmRatio)
         anchors.centerIn: root
         showDate: root.showDate
         showSeconds: root.showSeconds
@@ -120,8 +120,8 @@ Rectangle {
 
             NightClock{
                 id: clock
-                height: 80
-                width: 190
+                height: 80 * Style.screenProportion
+                width: 180 * Style.screenProportion
                 //anchors.centerIn: root
                 showDate: root.showDate
                 showSeconds: root.showSeconds
@@ -154,8 +154,8 @@ Rectangle {
             anchors.bottom: statusText.top
             width: weatherScreen.width
             height: weatherScreen.height - weatherScreenHeader.height - bottomButtonsRow.height - statusText.height
-            cellHeight: Style.forecastCellHeight
-            cellWidth: Style.forecastCellWidth
+            cellHeight: Style.forecastCellHeight * Style.screenProportion
+            cellWidth: Style.forecastCellWidth * Style.screenProportion
             clip: true
 
             model: weatherModelItem.forecastModel

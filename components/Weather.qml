@@ -1,5 +1,6 @@
 import QtQuick 2.0
-import "../js/style.js" as Style
+import QtQuick.Window 2.2
+import "../style" 1.0
 
 Item {
     id: root
@@ -18,6 +19,7 @@ Item {
         source: conditionImageUrl
         onStatusChanged: {
             if(status == Image.Error) console.log("Error loading conditionImage")
+            console.log("Screen proportion: " + Style.screenProportion)
         }
     }
 
@@ -28,7 +30,7 @@ Item {
         width: parent.width
         text: root.labelText
         font.bold: true
-        font.pixelSize: root.height*Style.textSizeDayProportion
+        font.pixelSize: root.height * Style.textSizeDayProportion
         horizontalAlignment: Text.AlignLeft
         wrapMode: "WordWrap"
         color: Style.forecastTextColor
