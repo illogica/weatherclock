@@ -26,6 +26,8 @@ Item {
 
         XmlRole { name: "dateTime"; query: "@from/string()" }
         XmlRole { name: "temperature"; query: "temperature/@value/string()" }
+        XmlRole { name: "temperatureLow"; query: "temperature/@min/string()" }
+        XmlRole { name: "temperatureHigh"; query: "temperature/@max/string()" }
         XmlRole { name: "icon"; query: "symbol/@var/string()" }
         XmlRole { name: "condition"; query: "symbol/@name/string()" }
 

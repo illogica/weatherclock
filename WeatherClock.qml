@@ -67,7 +67,8 @@ Rectangle {
 
                 labelText: Globals.whichDay(Logic.dateFromXmlString(model.dateTime)) + "\n" + Logic.timeFromXmlString(model.dateTime)
                 conditionText: model.condition
-                tempText: Globals.fixTemperature(model.temperature) + "C°"
+                tempText: '<font color="lightskyblue">' + Globals.fixTemperature(model.temperatureLow) + "C°</font>" +
+                          '/<font color="tomato">' + Globals.fixTemperature(model.temperatureHigh) + "C°</font>"
                 conditionImageUrl:  Globals.getWeatherImage(model.icon)
 
                 Behavior on x {
