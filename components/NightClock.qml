@@ -12,10 +12,8 @@ Rectangle {
     property string currentDate
     property string textColor: "green"
 
-    //property int updatedWidth : 240
-
-    width: 120 * (Screen.pixelDensity / Style.dpmRatio)
-    height: 250 * (Screen.pixelDensity / Style.dpmRatio)
+    width: 140 * Style.screenProportion
+    height: 250 * Style.screenProportion
 
     color: "transparent"
 
@@ -36,7 +34,7 @@ Rectangle {
 
     FontLoader{
         id: ledFont
-        source: "../resources/font/LED_REAL.TTF"
+        source: "../resources/font/digital-7.ttf"
         onStatusChanged: if(ledFont.status == FontLoader.Error){
                              console.log("Impossibile caricare font.")
                          }

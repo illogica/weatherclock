@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.XmlListModel 2.0
+import com.illogica.cities 1.0
 import "../js/globals.js" as Globals
 
 Item {
@@ -7,21 +8,21 @@ Item {
 
     property alias forecastModel: forecast
     property alias currentModel: current
-    property string location: ""
+    //property string location: ""
     property bool forceOffline: false
     property string weatherCurrentBaseUrl: "http://api.openweathermap.org/data/2.5/weather?q="
     property string weatherForecastBaseUrl: "http://api.openweathermap.org/data/2.5/forecast?q="
     property string postFixUrl: "&mode=xml"
-    property string imageBaseUrl: "http://openweathermap.org/img/w/"
-    property string sourceForecast: weatherForecastBaseUrl + location + postFixUrl
-    property string sourceCurrent: weatherCurrentBaseUrl + location + postFixUrl
+    //property string imageBaseUrl: "http://openweathermap.org/img/w/"
+    //property string sourceForecast: weatherForecastBaseUrl + Cities.locationId + postFixUrl
+    //property string sourceCurrent: weatherCurrentBaseUrl + Cities.locationId + postFixUrl
     property int interval: 5
     property bool modelDataError: false
     property string statusMessage: ""
 
     XmlListModel{
         id: forecast
-        source: Globals.getSourceForecast(root.location)
+        source: Globals.getSourceForecast(Cities.locationName)
         query: "/weatherdata/forecast/time"
 
         XmlRole { name: "dateTime"; query: "@from/string()" }
@@ -61,7 +62,7 @@ Item {
 
     XmlListModel{
         id: current
-        source: Globals.getSourceCurrent(root.location)
+        source: Globals.getSourceCurrent(Cities.locationName)
         query: "/current"
 
         XmlRole { name: "condition"; query: "weather/@value/string()" }

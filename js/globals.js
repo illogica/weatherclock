@@ -5,11 +5,13 @@ var imageBaseUrl= "http://openweathermap.org/img/w/";
 var weatherImages = "../resources/weather_icons/";
 
 function getSourceForecast(location){
-    return weatherForecastBaseUrl + location + postFixUrl;
+    var strippedLocation = location.substring(0, location.length - 3);
+    return weatherForecastBaseUrl + strippedLocation + postFixUrl;
 }
 
 function getSourceCurrent(location){
-    return weatherCurrentBaseUrl + location + postFixUrl;
+    var strippedLocation = location.substring(0, location.length - 3);
+    return weatherCurrentBaseUrl + strippedLocation + postFixUrl;
 }
 
 function getSourceImageUrl(iconId){
@@ -19,6 +21,13 @@ function getSourceImageUrl(iconId){
 function whichDay(dateString) {
     var daysOfWeek = [qsTr('Sunday'),qsTr('Monday'), qsTr('Tuesday'), qsTr('Wednesday'), qsTr('Thursday'), qsTr('Friday'), qsTr('Saturday')];
     return daysOfWeek[new Date(dateString).getDay()];
+}
+
+function calculateCellWidth(parentWidth, cellWidth){
+    var instances = Math.floor(parentWidth/cellWidth);
+    var gridWidth = cellWidth*instances;
+    var spareSpace = parentWidth - gridWidth
+    return (cellWidth + Math.floor(spareSpace / instances)) - 3
 }
 
 function getWeatherImage(iconId){

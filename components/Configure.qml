@@ -1,5 +1,9 @@
 import QtQuick 2.0
 import Qt.labs.settings 1.0
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.2
+import com.illogica.cities 1.0
+
 import "../utils" 1.0
 import "../style" 1.0
 
@@ -8,16 +12,31 @@ Rectangle {
     property bool showSeconds: true
     property bool showDate: true
     property int forecastUpdateInterval: 5 //minutes
-    property string locationText: "Roma"
     property bool forceOffline: false
     property bool useFarenheit: false
+    visible: true
+    state: "Invisible"
 
     width: 320
     height: 480
 
+    states: [
+        State{
+            name: "Visible"
+            PropertyChanges { target: root; x: 0}
+        },
+        State {
+            name: "Invisible"
+            PropertyChanges { target: root; x: -(root.width)}
+        }
+    ]
+
+    Behavior on x {
+        NumberAnimation{duration: 600; easing.type: Easing.OutElastic}
+    }
+
     Settings{
         id: settings
-        property alias mylocationText: root.locationText
         property alias myForecastUpdateInterval: root.forecastUpdateInterval
         property alias myShowSeconds: root.showSeconds
         property alias myShowDate: root.showDate
@@ -34,12 +53,12 @@ Rectangle {
 
     Grid{
         id: controlElements
-        spacing: 10
+        spacing: 8
         columns: 2
         anchors.left: root.left
         anchors.leftMargin: spacing
-        //anchors.verticalCenter: root.verticalCenter
         anchors.top: root.top
+        anchors.topMargin: spacing
         anchors.right: root.right
 
         Text{
@@ -49,15 +68,33 @@ Rectangle {
             font.pixelSize: Style.textPixelSize
         }
 
-        TextInput{
+        Text{
             id: locationTextInput
-            width: controlElements.width - locationTextInput.x - controlElements.spacing
-            text: locationText
+            //width: controlElements.width/2 - (searchCityButton.width*2)
+            text: Cities.locationName
             font.pixelSize: Style.textPixelSize
             color: Style.penColor
-            //focus: true
-            KeyNavigation.up: offlineCheckBox
-            KeyNavigation.down: updateTextInput
+        }
+
+        Text{
+            id: spacerText
+            //width: controlElements.width/2 - (searchCityButton.width*2)
+            text: "     "
+            font.pixelSize: Style.textPixelSize
+            color: Style.penColor
+        }
+
+        WCButton{
+            id: searchCityButton
+            text: qsTr("Change city");
+            objectName: "citySearchButton";
+            //anchors.left: locationTextInput.right
+            //enabled: Cities.citiesLoaded
+            visible: true
+            onClicked:{
+                Cities.populateCitiesMap();
+                citySearchDialog.state = "Visible";
+            }
         }
 
         Text{
@@ -85,11 +122,11 @@ Rectangle {
             id: secondsLabel
             text: qsTr("Show seconds:")
             color: secondsCheckBox.focus ?
-                Qt.lighter(Style.penColor) : Style.penColor
+                       Qt.lighter(Style.penColor) : Style.penColor
             font.pixelSize: Style.textPixelSize
         }
 
-        CheckBox{
+        WCCheckBox{
             id: secondsCheckBox
             checked: showSeconds
             KeyNavigation.up: updateTextInput
@@ -100,11 +137,11 @@ Rectangle {
             id: dateLabel
             text: qsTr("Show date:")
             color: dateCheckBox.focus ?
-                Qt.lighter(Style.penColor) : Style.penColor
+                       Qt.lighter(Style.penColor) : Style.penColor
             font.pixelSize: Style.textPixelSize
         }
 
-        CheckBox{
+        WCCheckBox{
             id: dateCheckBox
             checked: showDate
             KeyNavigation.up: secondsCheckBox
@@ -115,11 +152,11 @@ Rectangle {
             id: offlineLabel
             text: qsTr("Clock only")
             color: offlineCheckBox.focus ?
-                Qt.lighter(Style.penColor) : Style.penColor
+                       Qt.lighter(Style.penColor) : Style.penColor
             font.pixelSize: Style.textPixelSize
         }
 
-        CheckBox{
+        WCCheckBox{
             id: offlineCheckBox
             checked: forceOffline
             KeyNavigation.up: dateCheckBox
@@ -130,11 +167,11 @@ Rectangle {
             id: farenheitLabel
             text: qsTr("Use Farenheit F°")
             color: offlineCheckBox.focus ?
-                Qt.lighter(Style.penColor) : Style.penColor
+                       Qt.lighter(Style.penColor) : Style.penColor
             font.pixelSize: Style.textPixelSize
         }
 
-        CheckBox{
+        WCCheckBox{
             id: farenheitCheckBox
             checked: useFarenheit
             KeyNavigation.up: offlineCheckBox
@@ -142,7 +179,7 @@ Rectangle {
         }
     }
 
-    Dialog{
+    WCDialog{
         id: errorDialog
         width: root.width
         anchors.centerIn: parent
@@ -150,27 +187,34 @@ Rectangle {
         visible: false
     }
 
-    Button{
+    WCButton{
         id: exitButton
         text: qsTr("OK")
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: 10
         onClicked: {
-            if(updateTextInput.text == "" || updateTextInput.text == 0)
+            if(updateTextInput.text == "" || updateTextInput.text === 0)
                 errorDialog.show(qsTr("Update interval cannot be empty"))
             else if(locationTextInput.text=="")
                 errorDialog.show(qsTr("The location cannot be empty"))
             else {
                 forecastUpdateInterval = updateTextInput.text
-                root.locationText = locationTextInput.text
-                root.visible = false
+                root.state = "Invisible"
             }
             root.showSeconds = secondsCheckBox.checked
             root.showDate = dateCheckBox.checked
             root.forceOffline = offlineCheckBox.checked
             root.useFarenheit = farenheitCheckBox.checked
         }
+    }
+
+    CitySearchDialog{
+        id: citySearchDialog
+        z: root.z + 1
+        state: "Invisible"
+        anchors.left: root.left
+        anchors.right: root.right
     }
 }
 

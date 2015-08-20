@@ -40,7 +40,7 @@ Rectangle {
         }
     }
 
-    Button{
+    WCButton{
         id: okButton
         text: qsTr("OK")
         anchors.top: messageText.bottom

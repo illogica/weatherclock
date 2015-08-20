@@ -5,7 +5,6 @@ Rectangle {
     id: root
 
     property string text: "Button"
-
     color: "transparent"
 
     width: label.width + 15

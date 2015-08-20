@@ -7,17 +7,17 @@ QtObject {
     property string backgroundImage : "background.png"
 
     //Scale all the size according to Screen.pixelDensity
-    property real dpmRatio: 5
-    property real screenProportion: Screen.pixelDensity / dpmRatio
+    property real dpmRatio: 3
+    property real screenProportion: Screen.logicalPixelDensity / dpmRatio
 
     // color used to paint text and button borders
-    property string penColor: "grey"
+    property string penColor: "lightgrey"
 
     // size of of the UI texts
     property int textPixelSize : 20 * screenProportion
 
     // ??
-    property int baseMargin : 10
+    property int baseMargin : 5
 
     // background color for UI elements used when the backgroundImage is not visible
     property string backgroundColor:  "black"
@@ -50,4 +50,11 @@ QtObject {
     // alternative date format
     // var dateFormat = "MM/dd/yy"
     property string timeFormat : "hh :mm"
+
+    function calculateWeatherCellWidth(parentWidth){
+        var instances = Math.floor(parentWidth/forecastCellWidth);
+        var gridWidth = forecastCellWidth*instances;
+        var spareSpace = parentWidth - gridWidth
+        return (forecastCellWidth + Math.floor(spareSpace / instances)) - 5
+    }
 }

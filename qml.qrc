@@ -18,12 +18,10 @@
         <file>resources/icons_readme.txt</file>
         <file>resources/light_background.png</file>
         <file>utils/BusyIndicator.qml</file>
-        <file>utils/Button.qml</file>
-        <file>utils/CheckBox.qml</file>
-        <file>utils/Dialog.qml</file>
+        <file>utils/WCButton.qml</file>
+        <file>utils/WCCheckBox.qml</file>
+        <file>utils/WCDialog.qml</file>
         <file>utils/qmldir</file>
-        <file>resources/font/LED_REAL.TTF</file>
-        <file>resources/font/LED_REAL_readme.txt</file>
         <file>resources/weather_icons/clear-night.png</file>
         <file>resources/weather_icons/clouds-night.png</file>
         <file>resources/weather_icons/mist.png</file>
@@ -50,5 +48,12 @@
         <file>icon/xxhdpi/WeatherClock.png</file>
         <file>style/Style.qml</file>
         <file>style/qmldir</file>
+        <file>utils/SearchButton.qml</file>
+        <file>components/CitySearchDialog.qml</file>
+        <file>resources/cities.csv</file>
+        <file>resources/search-off.png</file>
+        <file>resources/search-on.png</file>
+        <file>resources/font/digital-7.ttf</file>
+        <file>resources/font/readme.txt</file>
     </qresource>
 </RCC>
