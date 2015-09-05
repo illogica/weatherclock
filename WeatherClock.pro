@@ -2,11 +2,10 @@ TEMPLATE = app
 
 QT += qml quick
 
-SOURCES += main.cpp \
-    citiesmap.cpp \
-    city.cpp
+SOURCES += main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += \
+    qml.qrc
 
 #QMAKE_CXXFLAGS_RELEASE -= -Os
 QMAKE_CXXFLAGS_RELEASE -= -O
@@ -27,10 +26,9 @@ DISTFILES += \
     android/res/values/libs.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    android/gradlew.bat \
+    html/index.htm
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
-HEADERS += \
-    citiesmap.h \
-    city.h
+HEADERS +=

@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.XmlListModel 2.0
-import com.illogica.cities 1.0
+//import com.illogica.cities 1.0
 import "../js/globals.js" as Globals
 
 Item {
@@ -8,21 +8,16 @@ Item {
 
     property alias forecastModel: forecast
     property alias currentModel: current
-    //property string location: ""
+    property string locationName
+    property string locationId
     property bool forceOffline: false
-    property string weatherCurrentBaseUrl: "http://api.openweathermap.org/data/2.5/weather?q="
-    property string weatherForecastBaseUrl: "http://api.openweathermap.org/data/2.5/forecast?q="
-    property string postFixUrl: "&mode=xml"
-    //property string imageBaseUrl: "http://openweathermap.org/img/w/"
-    //property string sourceForecast: weatherForecastBaseUrl + Cities.locationId + postFixUrl
-    //property string sourceCurrent: weatherCurrentBaseUrl + Cities.locationId + postFixUrl
     property int interval: 5
     property bool modelDataError: false
     property string statusMessage: ""
 
     XmlListModel{
         id: forecast
-        source: Globals.getSourceForecast(Cities.locationName)
+        source: Globals.weatherForecastBaseUrlByID + locationId + Globals.postFixUrl
         query: "/weatherdata/forecast/time"
 
         XmlRole { name: "dateTime"; query: "@from/string()" }
@@ -41,11 +36,12 @@ Item {
             } else if(status== XmlListModel.Ready) {
                 if(get(0) === undefined){
                     root.state = "Offline"
-                    root.statusMessage = "Invalid location: " + root.location
+                    root.statusMessage = "Invalid forecast location: " + root.locationId
                     root.modelDataError = true
                 } else {
                     root.state = "Live Weather"
                     root.statusMessage = "Live current weather is available"
+                    root.modelDataError = false
                 }
             } else if(status == XmlListModel.Loading){
                 root.state = "Loading"
@@ -55,14 +51,13 @@ Item {
                 root.statusMessage = "Forecast data is empty..."
             } else {
                 root.modelDataError = false
-                console.log("Weather clock: unknown XmlListModel status: " + status)
             }
         }
     }
 
     XmlListModel{
         id: current
-        source: Globals.getSourceCurrent(Cities.locationName)
+        source: Globals.weatherCurrentBaseUrlByID + locationId + Globals.postFixUrl
         query: "/current"
 
         XmlRole { name: "condition"; query: "weather/@value/string()" }
@@ -80,11 +75,12 @@ Item {
             } else if(status== XmlListModel.Ready) {
                 if(get(0) === undefined){
                     root.state = "Offline"
-                    root.statusMessage = "Invalid location: " + root.location
+                    root.statusMessage = "Invalid current location: " + root.locationId
                     root.modelDataError = true
                 } else {
                     root.state = "Live Weather"
                     root.statusMessage = "Live current weather is available"
+                    root.modelDataError = false
                 }
             } else if(status == XmlListModel.Loading){
                 root.state = "Loading"
@@ -94,7 +90,6 @@ Item {
                 root.statusMessage = "Forecast data is empty..."
             } else {
                 root.modelDataError = false
-                console.log("Weather clock: unknown XmlListModel status: " + status)
             }
         }
     }

@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
-import com.illogica.cities 1.0
+//import com.illogica.cities 1.0
 
 import "utils" 1.0
 import "components" 1.0
@@ -12,8 +12,8 @@ Rectangle {
     id: root
 
     //Configuration is loaded from a C++ singleton
-    property string defaultLocation: Cities.locationName
-    property string defaultLocationId: Cities.locationId
+    property string defaultLocation: configure.locName
+    property string defaultLocationId: configure.locId
 
     property int defaultInterval: configure.forecastUpdateInterval
     property bool showSeconds: configure.showSeconds
@@ -22,14 +22,11 @@ Rectangle {
     property bool useFarenheit: configure.useFarenheit
     state: forceOffline ? "Offline" : weatherModelItem.state
 
-    onDefaultLocationChanged: console.log("new loaction: " + defaultLocation)
-
     width: Window.width
     height: Window.height
 
     //We have 3 possible states:
     onStateChanged: {
-        console.log("new state: " + state)
         if (state == "Offline")
             statusText.showStatus("offline");
         else if(state == "Loading")
@@ -62,7 +59,8 @@ Rectangle {
     //A standard weather module
     WeatherModelItem{
         id: weatherModelItem
-        //location: root.defaultLocation
+        locationId: root.defaultLocationId
+        locationName: root.defaultLocation
         interval: root.defaultInterval
         forceOffline: root.forceOffline
         onModelDataErrorChanged: {
@@ -105,7 +103,7 @@ Rectangle {
         id: weatherCurrentDelegate
         Weather{
             id: currentWeatherItem
-            labelText: Cities.locationName
+            labelText: defaultLocation
             conditionText: model.condition
             conditionImageUrl: Globals.getWeatherImage(model.icon)
             tempText: if(useFarenheit)(Logic.k2f(model.temp) + "F°")
@@ -262,6 +260,17 @@ Rectangle {
         }
     }
 
+    WCButton{
+        id: infoButton
+        anchors.right: root.right
+        anchors.top: root.top
+        text: "Info"
+        onClicked: {
+            info.state = "Visible"
+            info.visible = true
+        }
+    }
+
     Configure{
         id: configure
         objectName: "configure"
@@ -276,7 +285,16 @@ Rectangle {
         forceOffline: false
         useFarenheit: false
         state: "Invisible"
+    }
 
+    Info{
+        id: info
+        height: root.height
+        anchors.left: root.left
+        anchors.right: root.right
+        z: root.z + 1
+        visible: false
+        state: "Invisible"
     }
 
     states: [

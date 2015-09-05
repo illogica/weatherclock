@@ -49,11 +49,13 @@
         <file>style/Style.qml</file>
         <file>style/qmldir</file>
         <file>utils/SearchButton.qml</file>
-        <file>components/CitySearchDialog.qml</file>
-        <file>resources/cities.csv</file>
         <file>resources/search-off.png</file>
         <file>resources/search-on.png</file>
         <file>resources/font/digital-7.ttf</file>
         <file>resources/font/readme.txt</file>
+        <file>components/CityModelItem.qml</file>
+        <file>components/Info.qml</file>
+        <file>resources/logo_illogica_180x120.png</file>
+        <file>js/licenses.js</file>
     </qresource>
 </RCC>

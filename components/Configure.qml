@@ -2,18 +2,22 @@ import QtQuick 2.0
 import Qt.labs.settings 1.0
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.2
-import com.illogica.cities 1.0
+//import com.illogica.cities 1.0
 
 import "../utils" 1.0
 import "../style" 1.0
 
 Rectangle {
     id: root
+    clip: true
     property bool showSeconds: true
     property bool showDate: true
     property int forecastUpdateInterval: 5 //minutes
     property bool forceOffline: false
     property bool useFarenheit: false
+    property alias locId: citySearchDialog.locationId
+    property alias locName: citySearchDialog.locationName
+
     visible: true
     state: "Invisible"
 
@@ -71,7 +75,8 @@ Rectangle {
         Text{
             id: locationTextInput
             //width: controlElements.width/2 - (searchCityButton.width*2)
-            text: Cities.locationName
+            //text: Cities.locationName
+            text: locName
             font.pixelSize: Style.textPixelSize
             color: Style.penColor
         }
@@ -92,7 +97,7 @@ Rectangle {
             //enabled: Cities.citiesLoaded
             visible: true
             onClicked:{
-                Cities.populateCitiesMap();
+                //Cities.populateCitiesMap();
                 citySearchDialog.state = "Visible";
             }
         }
@@ -209,7 +214,7 @@ Rectangle {
         }
     }
 
-    CitySearchDialog{
+    CityModelItem{
         id: citySearchDialog
         z: root.z + 1
         state: "Invisible"

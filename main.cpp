@@ -8,7 +8,7 @@
 #include <QStringListModel>
 #include <QStringList>
 #include <QtQml>
-#include "citiesmap.h"
+//#include "citiesmap.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     QQuickView view;
     view.setMinimumSize(QSize(640,480));
 
-    qmlRegisterSingletonType<CitiesMap>("com.illogica.cities", 1,0, "Cities", CitiesMap::singletontype_provider);
+    //qmlRegisterSingletonType<CitiesMap>("com.illogica.cities", 1,0, "Cities", CitiesMap::singletontype_provider);
 
     view.setSource(QUrl(QStringLiteral("qrc:/WeatherClock.qml")));
 

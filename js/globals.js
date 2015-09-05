@@ -1,8 +1,14 @@
 var weatherCurrentBaseUrl = "http://api.openweathermap.org/data/2.5/weather?q=";
 var weatherForecastBaseUrl= "http://api.openweathermap.org/data/2.5/forecast?q=";
+var weatherCurrentBaseUrlByID = "http://api.openweathermap.org/data/2.5/weather?id=";
+var weatherForecastBaseUrlByID = "http://api.openweathermap.org/data/2.5/forecast?id=";
+
 var postFixUrl= "&mode=xml";
 var imageBaseUrl= "http://openweathermap.org/img/w/";
 var weatherImages = "../resources/weather_icons/";
+
+var citiesSearchBaseUrl = "http://api.openweathermap.org/data/2.5/find?q="
+var citiesSearchPostfix = "&units=metric&mode=xml"
 
 function getSourceForecast(location){
     var strippedLocation = location.substring(0, location.length - 3);
